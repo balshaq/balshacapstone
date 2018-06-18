@@ -86,8 +86,34 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
 #' @examples \dontrun{eq_map()}
 #'
 #' @export
-eq_map <- function() {
-  print("Unfortunately, did not have time or interest to complete this function.
-        Just a reminder, the grading rubric for this assignment has nothing to do
-        with whether this function is complete or working. Thanks!")
+eq_map <- function(data, annot_col = "DATE") {
+  # Make a leaflet
+  leaflet::leaflet(data = data) %>%
+    leaflet::addProviderTiles("OpenStreetMap.Mapnik") %>%
+    leaflet::addCircleMarkers(
+      lng = ~ LONGITUDE,
+      lat = ~ LATITUDE,
+      radius = ~ EQ_PRIMARY,
+      popup = ~ data[[annot_col]]
+    )
 }
+
+#' Make up a label for visualization popup
+#' To be used with eq_map() function to make more informative popup labe;
+#'
+#' @param data  The NOAA dataset
+#'
+#' @examples
+#' \dontrun{
+#'   data %>% mutate(popup_text = eq_create_label(.)) %>% eq_map(annot_col = "popup_text")
+#' }
+#'
+#' @export
+eq_create_label <- function(data) {
+  paste0(
+    "<b>Location:</b> ", data$LOCATION_NAME, "<br>",
+    "<b>Magnitude:</b> ", data$EQ_PRIMARY, "<br>",
+    "<b>Total deaths:</b> ", ifelse(is.na(data$TOTAL_DEATHS), "Unknown", data$TOTAL_DEATHS)
+  )
+}
+

@@ -1,3 +1,12 @@
+library(readr)
+library(dplyr)
+library(sqldf)
+library(dplyr)
+library(lubridate)
+library(tidyr)
+library(tools)
+
+
 #' Mastering Software Development in R Specialization Capstone Project
 
 #' Data loading function
@@ -17,21 +26,14 @@
 #' }
 #'
 #' @export
-library(readr)
-library(dplyr)
-library(sqldf)
-library(readr)
-library(dplyr)
-library(lubridate)
-library(tidyr)
-library(tools)
+
 
 eq_read_data <- function (filename) {
 if(!file.exists(filename))
     stop("file '", filename, "' does not exist")
-	
+
  read_delim(filename, delim = "\t",col_names = TRUE,na = c("", "NA")) %>% select(YEAR,MONTH,DAY,LATITUDE,LONGITUDE,LOCATION_NAME) %>% filter(!is.na(DAY))
-}  
+}
 
 
 #' Data cleaning function
@@ -68,7 +70,7 @@ eq_clean_data <- function(x) {
 #' Location cleaning function
 #' The function takes NOAA data and cleans the LOCATION_NAME column
 #' by stripping out the country name (including the colon) and
-#' converting names to title case 
+#' converting names to title case
 #'
 #' @importFrom dplyr mutate
 #'
@@ -90,6 +92,6 @@ location_clean <- function(x) {
     dplyr::mutate_each(funs(gsub(".*:", "", LOCATION_NAME)),LOCATION_NAME)%>%
     dplyr::mutate(LOCATION_NAME = base::tolower(LOCATION_NAME)) %>%
     dplyr::mutate(LOCATION_NAME = tools::toTitleCase(LOCATION_NAME))
-  
+
   return(data)
 }

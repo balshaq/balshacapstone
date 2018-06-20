@@ -2,21 +2,23 @@
 % Please edit documentation in R/geom_timeline.R
 \name{eq_map}
 \alias{eq_map}
-\title{A function that could return a map visualization of NOAA Earthquake data,
-but doesn't}
+\title{Eartquake visualisation function
+The function displays earthquakes on a map with annotation displayed in a popup}
 \usage{
 eq_map(data, annot_col = "DATE")
 }
-\value{
-text string
+\arguments{
+\item{data}{Clean NOAA dataset (data.frame)}
+
+\item{annot_col}{Name of a column to take annotation text from. Default is DATE}
 }
 \description{
-This function is a placeholder for the eq_map function assigned during the
-capstone. Included for completeness sake, despite the fact that the grading
-rubric has nothing to do with whether all functions from previous weeks in the
-capstone are included or working
+Eartquake visualisation function
+The function displays earthquakes on a map with annotation displayed in a popup
 }
 \examples{
-\dontrun{eq_map()}
+\dontrun{
+  eq_map(data = data, annot_col = "DATE")
+}
 
 }

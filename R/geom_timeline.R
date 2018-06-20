@@ -72,18 +72,19 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
 )
 
 
-#' A function that could return a map visualization of NOAA Earthquake data,
-#' but doesn't
+
+#' Eartquake visualisation function
+#' The function displays earthquakes on a map with annotation displayed in a popup
 #'
-#'This function is a placeholder for the eq_map function assigned during the
-#'capstone. Included for completeness sake, despite the fact that the grading
-#'rubric has nothing to do with whether all functions from previous weeks in the
-#'capstone are included or working
+#' @importFrom leaflet leaflet addProviderTiles addCircleMarkers
 #'
-#' @return text string
+#' @param data  Clean NOAA dataset (data.frame)
+#' @param annot_col Name of a column to take annotation text from. Default is DATE
 #'
-#'
-#' @examples \dontrun{eq_map()}
+#' @examples
+#' \dontrun{
+#'   eq_map(data = data, annot_col = "DATE")
+#' }
 #'
 #' @export
 eq_map <- function(data, annot_col = "DATE") {

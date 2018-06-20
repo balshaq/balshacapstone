@@ -15,14 +15,14 @@ library(tools)
 #' The function loads the raw NOAA data from a given file to a dataframe
 
 #' @importFrom readr read_delim
-#'
+#' @importFrom lubridate ymd
 #' @param filename  A name of the file
 #'
 #' @return  dataset
 #'
 #' @examples
 #' \dontrun{
-#'   sample_file <- eq_clean_data("signif.txt")
+#'   sample_file <- eq_clean_data(raw_data)
 #' }
 #'
 #' @export
@@ -42,7 +42,7 @@ if(!file.exists(filename))
 #' @param raw_data The raw NOAA dataset (data frame)
 #'
 #' @importFrom dplyr mutate
-#'
+#' @importFrom stats filter
 #' @return Clean dataset
 #'
 #' @examples
@@ -53,11 +53,11 @@ if(!file.exists(filename))
 #' @export
 
 
-eq_clean_data <- function(x) {
+eq_clean_data <- function(raw_data) {
   date <- NULL
   LATITUDE <- NULL
   LONGITUDE <- NULL
-  data <- sqldf("select trim(YEAR,'-')||MONTH||DAY date ,LATITUDE,LONGITUDE,LOCATION_NAME  from x limit  10")  %>%
+  data <- sqldf("select trim(YEAR,'-')||MONTH||DAY date ,LATITUDE,LONGITUDE,LOCATION_NAME  from raw_data limit  10")  %>%
     dplyr::mutate(LATITUDE= as.numeric(LATITUDE)) %>%
     dplyr::mutate(LONGITUDE= as.numeric(LONGITUDE)) %>%
     dplyr::mutate(date = lubridate::ymd(date))
@@ -86,12 +86,13 @@ eq_clean_data <- function(x) {
 #' @export
 
 
-location_clean <- function(x) {
+location_clean <- function(raw_data) {
   LOCATION_NAME <- NULL
-  data <- x %>%
+  data <- raw_data %>%
     dplyr::mutate_each(funs(gsub(".*:", "", LOCATION_NAME)),LOCATION_NAME)%>%
     dplyr::mutate(LOCATION_NAME = base::tolower(LOCATION_NAME)) %>%
     dplyr::mutate(LOCATION_NAME = tools::toTitleCase(LOCATION_NAME))
 
   return(data)
 }
+

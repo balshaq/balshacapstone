@@ -25,7 +25,7 @@ The function loads the raw NOAA data from a given file to a dataframe
 }
 \examples{
 \dontrun{
-  sample_file <- eq_clean_data("signif.txt")
+  sample_file <- eq_clean_data(raw_data)
 }
 
 }

@@ -7,7 +7,7 @@ The function takes NOAA data and cleans the LOCATION_NAME column
 by stripping out the country name (including the colon) and
 converting names to title case}
 \usage{
-location_clean(x)
+location_clean(raw_data)
 }
 \arguments{
 \item{raw_data}{The raw NOAA dataset}

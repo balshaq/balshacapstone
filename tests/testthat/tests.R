@@ -1,4 +1,3 @@
-library(Capstone)
 library(testthat)
 context('Errors')
 test_that('Test file loading and cleaning', {

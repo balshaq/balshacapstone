@@ -5,7 +5,7 @@
 \title{Data cleaning function
 The function  takes raw NOAA data frame and returns a clean data frame.}
 \usage{
-eq_clean_data(x)
+eq_clean_data(raw_data)
 }
 \arguments{
 \item{raw_data}{The raw NOAA dataset (data frame)}

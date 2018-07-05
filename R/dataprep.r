@@ -3,7 +3,7 @@ library(dplyr)
 library(sqldf)
 library(dplyr)
 library(lubridate)
-library(tidyr)
+#library(tidyr)
 library(tools)
 
 
